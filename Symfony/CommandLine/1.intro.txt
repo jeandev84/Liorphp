@@ -1,0 +1,7 @@
+$ php -v (version de php)
+$ composer -V (version de composer)
+
+====================================================
+Installation Symfony
+$ composer create-project symfony/website-skeleton Demo
+$ composer require server --dev (server

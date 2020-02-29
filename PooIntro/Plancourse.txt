@@ -1,0 +1,5 @@
+1. Organisation du code (Classes)
+2. Securite du code (l'encapsulation)
+3. Reutilisation du code (l'heritage)
+4. Controle : classes abstraites et interfaces
+5. Boss de fin : abstraction et polymorphisme

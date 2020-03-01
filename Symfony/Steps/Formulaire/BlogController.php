@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Article;
-use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Class BlogController
  * @package App\Controller
-*/
+ */
 class BlogController extends AbstractController
 {
     /**
@@ -50,7 +49,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/", name="home")
      * @return Response
-    */
+     */
     public function home()
     {
         return $this->render('blog/home.html.twig', [
@@ -77,13 +76,11 @@ class BlogController extends AbstractController
         }
 
         /* Creation d'un formulaire */
-//        $form = $this->createFormBuilder($article)
-//                     ->add('title')
-//                     ->add('content')
-//                     ->add('image')
-//                     ->getForm();
-
-        $form = $this->createForm(ArticleType::class, $article);
+        $form = $this->createFormBuilder($article)
+            ->add('title')
+            ->add('content')
+            ->add('image')
+            ->getForm();
 
         /* Analyse de requette par le formulaire */
         $form->handleRequest($request);
@@ -92,17 +89,17 @@ class BlogController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-             # Si l'article n'a pas d' identifiant
-             if(! $article->getId())
-             {
-                 # alors on met ajour la date de creation
-                 $article->setCreatedAt(new \DateTime());
-             }
+            # Si l'article n'a pas d' identifiant
+            if(! $article->getId())
+            {
+                # alors on met ajour la date de creation
+                $article->setCreatedAt(new \DateTime());
+            }
 
-             $manager->persist($article);
-             $manager->flush();
+            $manager->persist($article);
+            $manager->flush();
 
-             return $this->redirectToRoute('blog_show', ['id' => $article->getId()]);
+            return $this->redirectToRoute('blog_show', ['id' => $article->getId()]);
         }
 
         return $this->render('blog/create.html.twig', [

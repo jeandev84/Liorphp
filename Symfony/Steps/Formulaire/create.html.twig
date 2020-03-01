@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme article_form 'bootstrap_4_layout.html.twig' %}
+{% block body %}
+    <h1>Creation d'un article</h1>
+
+    {{ form_start(article_form) }}
+
+    {#{{ form_widget(article_form) }}#}
+    {{ form_row(article_form.title, {'attr': {'placeholder': "Titre de l'article"}}) }}
+    {{ form_row(article_form.content, {'attr': {'placeholder': "Contenu de l'article"}}) }}
+    {{ form_row(article_form.image, {'attr': {'placeholder': "URL de l'image"}}) }}
+
+    <button type="submit" class="btn btn-success">
+        {% if editMode %}
+            Enregistrer les modification
+        {% else %}
+            Ajouter l'article
+        {% endif %}
+    </button>
+    {{ form_end(article_form) }}
+{% endblock %}

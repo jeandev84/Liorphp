@@ -1,0 +1,7 @@
+https://bootswatch.com/
+
+On choisit comme template Flatly par example:
+https://bootswatch.com/flatly/
+
+Creer du contenu:
+(article>h2{Titre de l'article}+div.metadata{Ecrit le 01/03/2020 a 19:00 dans la categorie Politique}+div.content>img+(p>lorem15)*2+a.btn.btn-primary{Lire la suite})*3

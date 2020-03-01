@@ -1,0 +1,220 @@
+ORM
+1. Entity : Representre une table
+2. Manager : Permet de manager une ligne , Insertion / Mise a jour / Suppression de donnees
+3. Repository: Permet de faire des selections
+
+=====================================================
+Creer Database:
+$ bin/console doctrine:database:create
+Created database `liorsymfo_blog` for connection named default
+
+=====================================================
+Creer une Entity
+$ bin/console make:entity
+
+ Class name of the entity to create or update (e.g. AgreeablePuppy):
+ > Article
+
+ created: src/Entity/Article.php
+ created: src/Repository/ArticleRepository.php
+
+ Entity generated! Now let's add some fields!
+ You can always add more fields later manually or by re-running this command.
+
+ New property name (press <return> to stop adding fields):
+ > title
+
+ Field type (enter ? to see all types) [string]:
+ > ?
+
+Main types
+  * string
+  * text
+  * boolean
+  * integer (or smallint, bigint)
+  * float
+
+Relationships / Associations
+  * relation (a wizard 🧙 will help you build the relation)
+  * ManyToOne
+  * OneToMany
+  * ManyToMany
+  * OneToOne
+
+Array/Object Types
+  * array (or simple_array)
+  * json
+  * object
+  * binary
+  * blob
+
+Date/Time Types
+  * datetime (or datetime_immutable)
+  * datetimetz (or datetimetz_immutable)
+  * date (or date_immutable)
+  * time (or time_immutable)
+  * dateinterval
+
+Other Types
+  * decimal
+  * guid
+  * json_array
+
+
+ Field type (enter ? to see all types) [string]:
+ >
+
+ Field length [255]:
+ >
+
+ Can this field be null in the database (nullable) (yes/no) [no]:
+ >
+
+ updated: src/Entity/Article.php
+
+ Add another property? Enter the property name (or press <return> to stop adding fields):
+ > content
+
+ Field type (enter ? to see all types) [string]:
+ > text
+
+ Can this field be null in the database (nullable) (yes/no) [no]:
+ >
+
+ updated: src/Entity/Article.php
+
+ Add another property? Enter the property name (or press <return> to stop adding fields):
+ > image
+
+ Field type (enter ? to see all types) [string]:
+ >
+
+ Field length [255]:
+ >
+
+ Can this field be null in the database (nullable) (yes/no) [no]:
+ >
+
+ updated: src/Entity/Article.php
+
+ Add another property? Enter the property name (or press <return> to stop adding fields):
+ > createdAt
+
+ Field type (enter ? to see all types) [datetime]:
+ >
+
+ Can this field be null in the database (nullable) (yes/no) [no]:
+ >
+
+ updated: src/Entity/Article.php
+
+ Add another property? Enter the property name (or press <return> to stop adding fields):
+ >
+
+
+
+  Success!
+
+
+ Next: When you're ready, create a migration with make:migration
+
+========================================================
+Make Migration
+$ bin/console make:migration
+
+
+  Success!
+
+
+ Next: Review the new migration "src/Migrations/Version20200229225730.php"
+ Then: Run the migration with php bin/console doctrine:migrations:migrate
+
+========================================================
+Migrate to Database
+$ bin/console doctrine:migrations:migrate
+
+                    Application Migrations
+
+
+WARNING! You are about to execute a database migration that could result in schema changes and data loss. Are you sure you wish to continue? (y/n)y
+Migrating up to 20200229225730 from 0
+
+  ++ migrating 20200229225730
+
+     -> CREATE TABLE article (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, content LONGTEXT NOT NULL, image VARCHAR(255) NOT NULL, created_at DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB
+
+  ++ migrated (took 94.8ms, used 16M memory)
+
+  ------------------------
+
+  ++ finished in 100.2ms
+  ++ used 16M memory
+  ++ 1 migrations executed
+  ++ 1 sql queries
+============================================================
+INstallation ORM-FIXTURES
+$ composer require orm-fixtures --dev
+
+Make Fixtures:
+$ bin/console make:fixtures
+
+ The class name of the fixtures to create (e.g. AppFixtures):
+ > ArticleFixtures
+
+ created: src/DataFixtures/ArticleFixtures.php
+
+
+  Success!
+
+
+ Next: Open your new fixtures class and start customizing it.
+ Load your fixtures by running: php bin/console doctrine:fixtures:load
+ Docs: https://symfony.com/doc/master/bundles/DoctrineFixturesBundle/index.html
+
+ =================================================
+ Example:
+ src/DataFixtures/ArticleFixtures
+ <?php
+
+ namespace App\DataFixtures;
+
+ use App\Entity\Article;
+ use Doctrine\Bundle\FixturesBundle\Fixture;
+ use Doctrine\Common\Persistence\ObjectManager;
+
+
+ /**
+  * Class ArticleFixtures
+  * @package App\DataFixtures
+ */
+ class ArticleFixtures extends Fixture
+ {
+     public function load(ObjectManager $manager)
+     {
+         for($i = 1; $i < 10; $i++)
+         {
+             $article = new Article();
+             $article->setTitle("Titre de l'article numero $i")
+                     ->setContent("<p>Contenu de l'article numero $i</p>")
+                     ->setImage("http://placehold.it/350x150")
+                     ->setCreatedAt(new \DateTime());
+
+             $manager->persist($article);
+             $manager->flush();
+         }
+
+         $manager->flush();
+     }
+ }
+
+=========================================================
+Lance la commande:
+$  bin/console doctrine:fixtures:load
+
+   Careful, database "liorsymfo_blog" will be purged. Do you want to continue? (yes/no) [no]:
+   > yes
+
+     > purging database
+     > loading App\DataFixtures\AppFixtures
+     > loading App\DataFixtures\ArticleFixtures
+=========================================================

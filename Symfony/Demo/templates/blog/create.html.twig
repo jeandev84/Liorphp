@@ -7,8 +7,9 @@
     {{ form_start(article_form) }}
 
     {#{{ form_widget(article_form) }}#}
-    {{ form_errors(article_form.title) }}
+    {#{{ form_errors(article_form.title) }}#}
     {{ form_row(article_form.title, {'attr': {'placeholder': "Titre de l'article"}}) }}
+    {{ form_row(article_form.category) }}
     {{ form_row(article_form.content, {'attr': {'placeholder': "Contenu de l'article"}}) }}
     {{ form_row(article_form.image, {'attr': {'placeholder': "URL de l'image"}}) }}
 
